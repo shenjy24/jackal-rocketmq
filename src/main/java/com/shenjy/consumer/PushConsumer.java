@@ -17,11 +17,11 @@ import java.util.List;
  *
  * @author shenjy 2017/11/17
  */
-public class Consumer {
+public class PushConsumer {
 
-    private static final String nameServerAddr = "127.0.0.1:9876";
+    private static final String nameServerAddr = "47.75.161.14:9800";
 
-    public void consume() throws MQClientException, InterruptedException{
+    public void consume() throws MQClientException, InterruptedException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroup");
         consumer.setNamesrvAddr(nameServerAddr);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
@@ -41,6 +41,6 @@ public class Consumer {
         });
 
         consumer.start();
-        System.out.println("Consumer Started.");
+        System.out.println("PushConsumer Started.");
     }
 }

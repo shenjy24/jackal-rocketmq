@@ -12,7 +12,7 @@ import com.alibaba.rocketmq.common.message.Message;
  */
 public class Producer {
 
-    private static final String nameServerAddr = "127.0.0.1:9876";
+    private static final String nameServerAddr = "47.75.161.14:9800";
 
     public void produce() throws MQClientException, InterruptedException{
         DefaultMQProducer producer = new DefaultMQProducer("ProducerGroup");

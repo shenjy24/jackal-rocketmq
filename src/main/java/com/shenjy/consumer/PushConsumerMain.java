@@ -7,11 +7,11 @@ import com.alibaba.rocketmq.client.exception.MQClientException;
  *
  * @author shenjy 2017/11/16
  */
-public class ConsumerMain {
+public class PushConsumerMain {
     public static void main(String[] args) {
-        Consumer consumer = new Consumer();
+        PushConsumer pushConsumer = new PushConsumer();
         try {
-            consumer.consume();
+            pushConsumer.consume();
         } catch (MQClientException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
