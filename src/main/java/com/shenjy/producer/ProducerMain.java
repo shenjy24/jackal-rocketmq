@@ -9,7 +9,9 @@ import com.alibaba.rocketmq.client.exception.MQClientException;
  */
 public class ProducerMain {
     public static void main(String[] args) {
-        Producer producer = new Producer();
+//        SyncProducer syncProducer = new SyncProducer();
+//        AsyncProducer producer = new AsyncProducer();
+        OneWayProducer producer = new OneWayProducer();
         try {
             producer.produce();
         } catch (MQClientException e) {

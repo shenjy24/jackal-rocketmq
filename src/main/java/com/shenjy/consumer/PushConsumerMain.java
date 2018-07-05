@@ -14,8 +14,6 @@ public class PushConsumerMain {
             pushConsumer.consume();
         } catch (MQClientException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

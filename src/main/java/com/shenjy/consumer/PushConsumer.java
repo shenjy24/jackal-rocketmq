@@ -19,19 +19,19 @@ import java.util.List;
  */
 public class PushConsumer {
 
-    private static final String nameServerAddr = "47.75.161.14:9800";
+    private static final String nameServerAddr = "127.0.0.1:9876";
 
-    public void consume() throws MQClientException, InterruptedException {
+    public void consume() throws MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroup");
         consumer.setNamesrvAddr(nameServerAddr);
-        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
         consumer.subscribe("TopicA", "*");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeConcurrentlyContext context) {
                 for (MessageExt ext : messageExts) {
                     try {
-                        System.out.println(new Date() + new String(ext.getBody(), "UTF-8"));
+                        System.out.println(new Date() + ": " + new String(ext.getBody(), "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
