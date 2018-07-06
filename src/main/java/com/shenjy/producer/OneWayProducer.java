@@ -3,6 +3,7 @@ package com.shenjy.producer;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
 import com.alibaba.rocketmq.common.message.Message;
+import com.shenjy.common.MqProp;
 
 /**
  * 【生产者：单向发送消息】
@@ -11,23 +12,15 @@ import com.alibaba.rocketmq.common.message.Message;
  */
 public class OneWayProducer {
 
-    private static final String NAME_SERVER_ADDR = "127.0.0.1:9876";
-
-    private static final String PRODUCER_GROUP = "SMS_GROUP";
-
-    private static final String TOPIC = "TopicA";
-
-    private static final String TAG = "TagA";
-
-    public void produce() throws MQClientException, InterruptedException{
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCER_GROUP);
-        producer.setNamesrvAddr(NAME_SERVER_ADDR);
+    public void produce(String topic, String tag, String key) throws MQClientException, InterruptedException{
+        DefaultMQProducer producer = new DefaultMQProducer(MqProp.PRODUCER_GROUP);
+        producer.setNamesrvAddr(MqProp.NAME_SERVER_ADDR);
         producer.start();
 
         for (int i = 0; i < 100; i++) {
             try {
 
-                Message msg = new Message(TOPIC, TAG, ("Hello RocketMq " + i).getBytes("UTF-8"));
+                Message msg = new Message(topic, tag, key, ("Hello RocketMq " + i).getBytes("UTF-8"));
                 producer.sendOneway(msg);
 
             } catch (Exception e) {

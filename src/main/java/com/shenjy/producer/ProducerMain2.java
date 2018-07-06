@@ -8,13 +8,13 @@ import com.shenjy.common.MqProp;
  *
  * @author shenjy 2017/11/17
  */
-public class ProducerMain {
+public class ProducerMain2 {
     public static void main(String[] args) {
         SyncProducer producer = new SyncProducer();
 //        AsyncProducer producer = new AsyncProducer();
 //        OneWayProducer producer = new OneWayProducer();
         try {
-            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, MqProp.KEY_A);
+            producer.produce(MqProp.TOPIC_B, MqProp.TAG_B, MqProp.KEY_B);
         } catch (MQClientException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

@@ -5,6 +5,7 @@ import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
 import com.alibaba.rocketmq.client.producer.SendCallback;
 import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
+import com.shenjy.common.MqProp;
 
 /**
  * 【生产者：异步发送消息】
@@ -13,26 +14,16 @@ import com.alibaba.rocketmq.common.message.Message;
  */
 public class AsyncProducer {
 
-    private static final String NAME_SERVER_ADDR = "127.0.0.1:9876";
-
-    private static final String PRODUCER_GROUP = "SMS_GROUP";
-
-    private static final String TOPIC = "TopicA";
-
-    private static final String TAG = "TagA";
-
-    private static final String KEY = "OrderId188";
-
-    public void produce() throws MQClientException, InterruptedException{
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCER_GROUP);
-        producer.setNamesrvAddr(NAME_SERVER_ADDR);
+    public void produce(String topic, String tag, String key) throws MQClientException, InterruptedException{
+        DefaultMQProducer producer = new DefaultMQProducer(MqProp.PRODUCER_GROUP);
+        producer.setNamesrvAddr(MqProp.NAME_SERVER_ADDR);
         producer.start();
         producer.setRetryTimesWhenSendAsyncFailed(0);
 
         for (int i = 0; i < 100; i++) {
             try {
                 final int index = i;
-                Message msg = new Message(TOPIC, TAG, KEY, ("Hello RocketMq " + i).getBytes("UTF-8"));
+                Message msg = new Message(topic, tag, key, ("Hello RocketMq " + i).getBytes("UTF-8"));
 
                 producer.send(msg, new SendCallback() {
                     @Override

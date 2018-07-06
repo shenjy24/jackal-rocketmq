@@ -7,6 +7,7 @@ import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.MessageExt;
+import com.shenjy.common.MqProp;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -19,13 +20,11 @@ import java.util.List;
  */
 public class PushConsumer {
 
-    private static final String nameServerAddr = "127.0.0.1:9876";
-
-    public void consume() throws MQClientException {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroup");
-        consumer.setNamesrvAddr(nameServerAddr);
+    public void consume(String topic, String tag) throws MQClientException {
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(MqProp.CONSUMER_GROUP);
+        consumer.setNamesrvAddr(MqProp.NAME_SERVER_ADDR);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-        consumer.subscribe("TopicA", "*");
+        consumer.subscribe(topic, "*");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeConcurrentlyContext context) {
