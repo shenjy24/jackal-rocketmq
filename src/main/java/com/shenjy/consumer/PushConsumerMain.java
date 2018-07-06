@@ -9,9 +9,9 @@ import com.alibaba.rocketmq.client.exception.MQClientException;
  */
 public class PushConsumerMain {
     public static void main(String[] args) {
-        PushConsumer pushConsumer = new PushConsumer();
+        PushConsumer consumer = new PushConsumer();
         try {
-            pushConsumer.consume();
+            consumer.consume();
         } catch (MQClientException e) {
             e.printStackTrace();
         }
