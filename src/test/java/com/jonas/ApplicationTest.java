@@ -1,9 +1,9 @@
 package com.jonas;
 
 import com.jonsa.common.MqProp;
-import com.jonsa.consumer.PushConsumer;
 import com.jonsa.producer.AsyncProducer;
 import com.jonsa.producer.OneWayProducer;
+import com.jonsa.producer.OrderedProducer;
 import com.jonsa.producer.SyncProducer;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.junit.Test;
@@ -14,10 +14,10 @@ import org.junit.Test;
 public class ApplicationTest {
 
     @Test
-    public void testConsume() {
-        PushConsumer consumer = new PushConsumer();
+    public void testOrderedSend() {
+        OrderedProducer producer = new OrderedProducer();
         try {
-            consumer.consume(MqProp.TOPIC_A, MqProp.TAG_A);
+            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, MqProp.KEY_A);
         } catch (MQClientException e) {
             e.printStackTrace();
         }
