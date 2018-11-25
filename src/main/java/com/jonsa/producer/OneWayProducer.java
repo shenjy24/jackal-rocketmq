@@ -1,9 +1,9 @@
-package com.shenjy.producer;
+package com.jonsa.producer;
 
-import com.alibaba.rocketmq.client.exception.MQClientException;
-import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
-import com.alibaba.rocketmq.common.message.Message;
-import com.shenjy.common.MqProp;
+import com.jonsa.common.MqProp;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.common.message.Message;
 
 /**
  * 【生产者：单向发送消息】
