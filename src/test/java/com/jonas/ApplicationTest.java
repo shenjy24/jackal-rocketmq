@@ -1,10 +1,7 @@
 package com.jonas;
 
 import com.jonsa.common.MqProp;
-import com.jonsa.producer.AsyncProducer;
-import com.jonsa.producer.OneWayProducer;
-import com.jonsa.producer.OrderedProducer;
-import com.jonsa.producer.SyncProducer;
+import com.jonsa.producer.*;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.junit.Test;
 
@@ -12,6 +9,18 @@ import org.junit.Test;
  * Unit test for simple Application.
  */
 public class ApplicationTest {
+
+    @Test
+    public void testTransactionSend() {
+        TransactionProducer producer = new TransactionProducer();
+        try {
+            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, MqProp.KEY_A);
+        } catch (MQClientException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void testOrderedSend() {
