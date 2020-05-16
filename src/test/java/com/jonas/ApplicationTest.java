@@ -1,7 +1,7 @@
 package com.jonas;
 
-import com.jonsa.common.MqProp;
-import com.jonsa.producer.*;
+import com.jonas.common.MqProp;
+import com.jonas.producer.*;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.junit.Test;
 

@@ -1,45 +1,45 @@
-package com.jonsa.consumer;
+package com.jonas.consumer;
 
-import com.jonsa.common.MqProp;
+import com.jonas.common.MqProp;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
-import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
-import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
 
 /**
- * 【 顺序消息消费者 】
+ * 【消费者】
  *
- * @author shenjy 2018/11/25
+ * @author shenjy 2017/11/17
  */
-public class OrderedConsumer {
+public class PushConsumer {
 
     public void consume(String topic, String tag) throws MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(MqProp.CONSUMER_GROUP);
         consumer.setNamesrvAddr(MqProp.NAME_SERVER_ADDR);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
         consumer.subscribe(topic, "*");
-
-        consumer.registerMessageListener(new MessageListenerOrderly() {
-
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
-            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
-                for (MessageExt ext : msgs) {
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeConcurrentlyContext context) {
+                for (MessageExt ext : messageExts) {
                     try {
-                        System.out.println(ext.getQueueId() + " : " + new String(ext.getBody(), "UTF-8"));
+                        System.out.println(new Date() + ": " + new String(ext.getBody(), "UTF-8"));
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
                 }
-                return ConsumeOrderlyStatus.SUCCESS;
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
 
         consumer.start();
+        System.out.println("PushConsumer Started.");
     }
 }

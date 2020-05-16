@@ -1,7 +1,7 @@
 package com.jonas;
 
-import com.jonsa.common.MqProp;
-import com.jonsa.consumer.PushConsumer;
+import com.jonas.common.MqProp;
+import com.jonas.consumer.PushConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
 
 /**

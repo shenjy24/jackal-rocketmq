@@ -1,9 +1,8 @@
-package com.jonsa.producer;
+package com.jonas.producer;
 
-import com.jonsa.common.MqProp;
+import com.jonas.common.MqProp;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.client.producer.MQProducer;
 import org.apache.rocketmq.client.producer.MessageQueueSelector;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
