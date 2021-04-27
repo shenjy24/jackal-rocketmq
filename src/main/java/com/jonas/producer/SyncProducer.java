@@ -1,16 +1,17 @@
-package com.jonsa.producer;
+package com.jonas.producer;
 
-import com.jonsa.common.MqProp;
+import com.jonas.common.MqProp;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 
 /**
- * 【生产者：单向发送消息】
+ * 【生产者：同步发送消息】
  *
  * @author shenjy 2017/11/17
  */
-public class OneWayProducer {
+public class SyncProducer {
 
     public void produce(String topic, String tag, String key) throws MQClientException, InterruptedException{
         DefaultMQProducer producer = new DefaultMQProducer(MqProp.PRODUCER_GROUP);
@@ -19,10 +20,11 @@ public class OneWayProducer {
 
         for (int i = 0; i < 100; i++) {
             try {
-
-                Message msg = new Message(topic, tag, key, ("Hello RocketMq " + i).getBytes("UTF-8"));
-                producer.sendOneway(msg);
-
+                if (i % 2 == 0) {
+                    Message msg = new Message(topic, tag, key, ("Hello RocketMq " + i).getBytes("UTF-8"));
+                    SendResult sendResult = producer.send(msg);
+                    System.out.println(sendResult);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 Thread.sleep(1000);

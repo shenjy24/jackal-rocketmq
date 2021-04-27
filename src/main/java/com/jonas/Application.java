@@ -1,4 +1,4 @@
-package com.jonsa;
+package com.jonas;
 
 /**
  * Hello world!
