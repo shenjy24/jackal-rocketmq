@@ -15,9 +15,9 @@ public class MqProp {
 
     public static final String TAG_B = "TagB";
 
-    public static final String KEY_A = "KeyA";
+    public static final String KEY_A = "KeyA-";
 
-    public static final String KEY_B = "KeyB";
+    public static final String KEY_B = "KeyB-";
 
     public static final String NAME_SERVER_ADDR = "127.0.0.1:9876";
 

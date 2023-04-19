@@ -5,6 +5,8 @@ import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.Message;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * 【生产者：单向发送消息】
  *
@@ -12,22 +14,19 @@ import org.apache.rocketmq.common.message.Message;
  */
 public class OneWayProducer {
 
-    public void produce(String topic, String tag, String key) throws MQClientException, InterruptedException{
+    public void produce(String topic, String tag, String key, String content) throws MQClientException, InterruptedException {
         DefaultMQProducer producer = new DefaultMQProducer(MqProp.PRODUCER_GROUP);
         producer.setNamesrvAddr(MqProp.NAME_SERVER_ADDR);
         producer.start();
 
-        for (int i = 0; i < 100; i++) {
-            try {
+        try {
 
-                Message msg = new Message(topic, tag, key, ("Hello RocketMq " + i).getBytes("UTF-8"));
-                producer.sendOneway(msg);
+            Message msg = new Message(topic, tag, key, content.getBytes(StandardCharsets.UTF_8));
+            producer.sendOneway(msg);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                Thread.sleep(1000);
-            }
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            Thread.sleep(1000);
         }
 
         producer.shutdown();

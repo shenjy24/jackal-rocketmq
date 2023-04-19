@@ -5,6 +5,8 @@ import com.jonas.producer.*;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.junit.Test;
 
+import java.util.UUID;
+
 /**
  * Unit test for simple Application.
  */
@@ -36,23 +38,24 @@ public class ApplicationTest {
     public void testSyncSend() {
         SyncProducer producer = new SyncProducer();
         try {
-            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, MqProp.KEY_A);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (MQClientException e) {
+            String key = MqProp.KEY_A + UUID.randomUUID();
+            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, key, "Test Sync Send");
+        } catch (InterruptedException | MQClientException e) {
             e.printStackTrace();
         }
     }
 
     @Test
     public void testAsyncSend() {
-        AsyncProducer producer = new AsyncProducer();
         try {
-            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, MqProp.KEY_A);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            AsyncProducer producer = new AsyncProducer();
+            String key = MqProp.KEY_A + UUID.randomUUID();
+            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, key, "Test Async Send");
+            Thread.sleep(5000);
         } catch (MQClientException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,10 +63,9 @@ public class ApplicationTest {
     public void testOneWaySend() {
         OneWayProducer producer = new OneWayProducer();
         try {
-            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, MqProp.KEY_A);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (MQClientException e) {
+            String key = MqProp.KEY_A + UUID.randomUUID();
+            producer.produce(MqProp.TOPIC_A, MqProp.TAG_A, key, "Test OneWay Send");
+        } catch (InterruptedException | MQClientException e) {
             e.printStackTrace();
         }
     }

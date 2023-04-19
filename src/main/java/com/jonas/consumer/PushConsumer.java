@@ -10,6 +10,7 @@ import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
@@ -29,11 +30,7 @@ public class PushConsumer {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageExts, ConsumeConcurrentlyContext context) {
                 for (MessageExt ext : messageExts) {
-                    try {
-                        System.out.println(new Date() + ": " + new String(ext.getBody(), "UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    System.out.println(new Date() + ": " + new String(ext.getBody(), StandardCharsets.UTF_8));
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
