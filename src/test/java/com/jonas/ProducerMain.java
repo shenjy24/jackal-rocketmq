@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Unit test for simple Application.
  */
-public class ApplicationTest {
+public class ProducerMain {
 
     @Test
     public void testTransactionSend() {
